@@ -1,5 +1,3 @@
-import json
-import os
 from datetime import datetime
 
 import streamlit as st
@@ -354,52 +352,14 @@ if analyze_button:
         )
 
 
-        # -------------------------------------------------
-        # HISTORY FILE
-        # -------------------------------------------------
-
-        history_directory = "Data"
-
-        history_file = os.path.join(
-            history_directory,
-            "history.json"
-        )
-
-        os.makedirs(
-            history_directory,
-            exist_ok=True
-        )
-
-
-        history = []
-
-
-        if os.path.exists(history_file):
-
-            try:
-
-                with open(
-                    history_file,
-                    "r",
-                    encoding="utf-8"
-                ) as file:
-
-                    history = json.load(file)
-
-
-                if not isinstance(history, list):
-
-                    history = []
-
-
-            except Exception:
-
-                history = []
-
 
         # -------------------------------------------------
-        # HISTORY RECORD
+        # SAVE RESULT TO SESSION HISTORY
         # -------------------------------------------------
+
+        if "history" not in st.session_state:
+            st.session_state["history"] = []
+
 
         history_record = {
 
@@ -453,28 +413,15 @@ if analyze_button:
         }
 
 
-        history.append(
+        st.session_state["history"].append(
             history_record
         )
 
 
-        # Keep latest 50 analyses
-
-        history = history[-50:]
-
-
-        with open(
-            history_file,
-            "w",
-            encoding="utf-8"
-        ) as file:
-
-            json.dump(
-                history,
-                file,
-                indent=4,
-                ensure_ascii=False
-            )
+        # Keep latest 50 analyses for this session
+        st.session_state["history"] = (
+            st.session_state["history"][-50:]
+        )
 
 
         # -------------------------------------------------

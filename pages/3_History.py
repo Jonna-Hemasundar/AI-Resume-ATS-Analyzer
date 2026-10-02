@@ -1,6 +1,3 @@
-import json
-import os
-
 import pandas as pd
 import streamlit as st
 
@@ -17,75 +14,6 @@ st.set_page_config(
 
 
 # =========================================================
-# HISTORY FILE
-# =========================================================
-
-HISTORY_FILE = os.path.join(
-    "Data",
-    "history.json"
-)
-
-
-# =========================================================
-# LOAD HISTORY
-# =========================================================
-
-def load_history():
-
-    if not os.path.exists(
-        HISTORY_FILE
-    ):
-        return []
-
-    try:
-
-        with open(
-            HISTORY_FILE,
-            "r",
-            encoding="utf-8"
-        ) as file:
-
-            history = json.load(file)
-
-        if isinstance(
-            history,
-            list
-        ):
-            return history
-
-        return []
-
-    except Exception:
-
-        return []
-
-
-# =========================================================
-# SAVE HISTORY
-# =========================================================
-
-def save_history(history):
-
-    os.makedirs(
-        "Data",
-        exist_ok=True
-    )
-
-    with open(
-        HISTORY_FILE,
-        "w",
-        encoding="utf-8"
-    ) as file:
-
-        json.dump(
-            history,
-            file,
-            indent=4,
-            ensure_ascii=False
-        )
-
-
-# =========================================================
 # PAGE TITLE
 # =========================================================
 
@@ -99,10 +27,13 @@ st.write(
 
 
 # =========================================================
-# LOAD DATA
+# LOAD SESSION HISTORY
 # =========================================================
 
-history = load_history()
+history = st.session_state.get(
+    "history",
+    []
+)
 
 
 # =========================================================
@@ -488,15 +419,19 @@ for index in range(
         matched_list = []
 
 
-        for skills in matched.values():
+        if isinstance(matched, dict):
 
-            for skill in skills:
+            for skills in matched.values():
 
-                if skill not in matched_list:
+                if isinstance(skills, list):
 
-                    matched_list.append(
-                        skill
-                    )
+                    for skill in skills:
+
+                        if skill not in matched_list:
+
+                            matched_list.append(
+                                skill
+                            )
 
 
         if matched_list:
@@ -532,15 +467,19 @@ for index in range(
         missing_list = []
 
 
-        for skills in missing.values():
+        if isinstance(missing, dict):
 
-            for skill in skills:
+            for skills in missing.values():
 
-                if skill not in missing_list:
+                if isinstance(skills, list):
 
-                    missing_list.append(
-                        skill
-                    )
+                    for skill in skills:
+
+                        if skill not in missing_list:
+
+                            missing_list.append(
+                                skill
+                            )
 
 
         if missing_list:
@@ -600,7 +539,7 @@ st.header(
 
 
 st.warning(
-    "Clearing history will permanently remove all saved analysis records."
+    "Clearing history will remove all analysis records from this session."
 )
 
 
@@ -610,7 +549,7 @@ if st.button(
     use_container_width=True
 ):
 
-    save_history([])
+    st.session_state["history"] = []
 
     st.success(
         "✅ Analysis history has been cleared."
