@@ -21,7 +21,7 @@ st.set_page_config(
 # =========================================================
 
 HISTORY_FILE = os.path.join(
-    "data",
+    "Data",
     "history.json"
 )
 
@@ -67,7 +67,7 @@ def load_history():
 def save_history(history):
 
     os.makedirs(
-        "data",
+        "Data",
         exist_ok=True
     )
 

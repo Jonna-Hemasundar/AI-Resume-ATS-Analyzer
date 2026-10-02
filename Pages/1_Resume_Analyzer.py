@@ -358,7 +358,7 @@ if analyze_button:
         # HISTORY FILE
         # -------------------------------------------------
 
-        history_directory = "data"
+        history_directory = "Data"
 
         history_file = os.path.join(
             history_directory,
