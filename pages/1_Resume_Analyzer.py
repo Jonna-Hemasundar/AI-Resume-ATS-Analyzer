@@ -595,16 +595,12 @@ if analyze_button:
             )
 
 
-            if st.button(
-                "📊 Open Detailed Analysis Report",
-                type="primary",
+            st.page_link(
+                "pages/2_Analysis_Report.py",
+                label="📊 Open Detailed Analysis Report",
+                icon="📊",
                 use_container_width=True
-            ):
-
-                st.switch_page(
-                    "pages/2_Analysis_Report.py"
-                )
-
+            )
 
     except Exception as error:
 

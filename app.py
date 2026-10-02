@@ -31,8 +31,10 @@ resume_analyzer = st.Page(
 analysis_report = st.Page(
     "pages/2_Analysis_Report.py",
     title="Analysis Report",
-    icon="📊"
+    icon="📊",
+    url_path="Analysis_Report"
 )
+
 
 history = st.Page(
     "pages/3_History.py",
