@@ -33,7 +33,7 @@ st.write(
 
 
 # =========================================================
-# MAIN ACTION
+# GET STARTED
 # =========================================================
 
 st.divider()
@@ -43,18 +43,9 @@ st.header(
 )
 
 st.write(
-    "Start by uploading your resume and entering the "
-    "job description."
+    "Use the navigation menu on the left to open "
+    "the Resume Analyzer."
 )
-
-if st.button(
-    "📄 Analyze My Resume",
-    type="primary",
-    use_container_width=True
-):
-    st.switch_page(
-        "pages/1_Resume_Analyzer.py"
-    )
 
 
 # =========================================================
@@ -220,22 +211,16 @@ st.info(
 
 
 # =========================================================
-# BOTTOM ACTION
+# NAVIGATION INSTRUCTION
 # =========================================================
 
 st.divider()
 
 st.subheader(
-    "Ready to analyze your resume?"
+    "🚀 Ready to analyze your resume?"
 )
 
-
-if st.button(
-    "🚀 Start Resume Analysis",
-    type="primary",
-    use_container_width=True
-):
-
-    st.switch_page(
-        "pages/1_Resume_Analyzer.py"
-    )
+st.write(
+    "Select **Resume Analyzer** from the navigation menu "
+    "to upload your resume and start the analysis."
+)
