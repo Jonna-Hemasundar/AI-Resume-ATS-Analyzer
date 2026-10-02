@@ -13,214 +13,52 @@ st.set_page_config(
 
 
 # =========================================================
-# HOME PAGE
+# PAGE DEFINITIONS
 # =========================================================
 
-st.title(
-    "🤖 AI Resume & ATS Analyzer"
+home = st.Page(
+    "pages/0_Home.py",
+    title="Home",
+    icon="🏠"
 )
 
-st.subheader(
-    "Analyze your resume against any job description"
+resume_analyzer = st.Page(
+    "pages/1_Resume_Analyzer.py",
+    title="Resume Analyzer",
+    icon="📄"
 )
 
-st.write(
-    "Upload your resume, provide a target job description, "
-    "and get an ATS-style analysis with skill matching, "
-    "keyword analysis, similarity scoring, resume structure "
-    "analysis, and personalized recommendations."
+analysis_report = st.Page(
+    "pages/2_Analysis_Report.py",
+    title="Analysis Report",
+    icon="📊"
 )
 
-
-# =========================================================
-# GET STARTED
-# =========================================================
-
-st.divider()
-
-st.header(
-    "🚀 Get Started"
-)
-
-st.write(
-    "Use the navigation menu on the left to open "
-    "the Resume Analyzer."
+history = st.Page(
+    "pages/3_History.py",
+    title="History",
+    icon="🕒"
 )
 
 
 # =========================================================
-# FEATURES
+# NAVIGATION
 # =========================================================
 
-st.divider()
-
-st.header(
-    "✨ What This Tool Analyzes"
-)
-
-
-col1, col2, col3 = st.columns(3)
-
-
-with col1:
-
-    st.info(
-        "### 🎯 ATS Score\n\n"
-        "Get an overall ATS-style score based on "
-        "multiple resume and job-description factors."
-    )
-
-
-with col2:
-
-    st.success(
-        "### 🛠️ Skill Matching\n\n"
-        "Identify skills that match the job description "
-        "and skills that are not detected in your resume."
-    )
-
-
-with col3:
-
-    st.warning(
-        "### 🔑 Keyword Analysis\n\n"
-        "Check how well important job-description "
-        "keywords appear in your resume."
-    )
-
-
-col4, col5, col6 = st.columns(3)
-
-
-with col4:
-
-    st.info(
-        "### 📊 JD Similarity\n\n"
-        "Compare resume and job-description content "
-        "using TF-IDF similarity."
-    )
-
-
-with col5:
-
-    st.success(
-        "### 📑 Resume Structure\n\n"
-        "Check whether important resume sections "
-        "are clearly detected."
-    )
-
-
-with col6:
-
-    st.warning(
-        "### 💡 Recommendations\n\n"
-        "Receive practical suggestions for improving "
-        "resume-job alignment."
-    )
-
-
-# =========================================================
-# ANALYSIS PIPELINE
-# =========================================================
-
-st.divider()
-
-st.header(
-    "🔄 How It Works"
-)
-
-steps = [
-    "📄 Upload your resume PDF",
-    "💼 Enter the target job role",
-    "📋 Paste the job description",
-    "🔍 Analyze resume content",
-    "🧠 Extract skills and keywords",
-    "🎯 Match resume against the job",
-    "📊 Calculate ATS-style scores",
-    "💡 Generate recommendations",
-    "📈 View the detailed analysis report",
-]
-
-
-for index, step in enumerate(
-    steps,
-    start=1
-):
-
-    st.write(
-        f"**{index}.** {step}"
-    )
-
-
-# =========================================================
-# SCORE COMPONENTS
-# =========================================================
-
-st.divider()
-
-st.header(
-    "📊 Analysis Components"
-)
-
-
-score_components = {
-    "Skill Match": "35%",
-    "Keyword Match": "15%",
-    "JD Similarity": "20%",
-    "Resume Structure": "10%",
-    "Education Match": "10%",
-    "Experience Match": "10%"
-}
-
-
-for component, weight in score_components.items():
-
-    col1, col2 = st.columns(
-        [4, 1]
-    )
-
-    with col1:
-
-        st.write(
-            component
-        )
-
-    with col2:
-
-        st.write(
-            weight
-        )
-
-
-# =========================================================
-# IMPORTANT NOTE
-# =========================================================
-
-st.divider()
-
-st.header(
-    "ℹ️ Important"
-)
-
-st.info(
-    "This application provides an ATS-style analysis based "
-    "on the supplied resume and job description. The score "
-    "is an analytical indicator, not a guarantee of passing "
-    "an employer's actual ATS."
+pg = st.navigation(
+    [
+        home,
+        resume_analyzer,
+        analysis_report,
+        history
+    ],
+    position="sidebar",
+    expanded=True
 )
 
 
 # =========================================================
-# NAVIGATION INSTRUCTION
+# RUN SELECTED PAGE
 # =========================================================
 
-st.divider()
-
-st.subheader(
-    "🚀 Ready to analyze your resume?"
-)
-
-st.write(
-    "Select **Resume Analyzer** from the navigation menu "
-    "to upload your resume and start the analysis."
-)
+pg.run()
